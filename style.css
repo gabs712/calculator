@@ -27,7 +27,8 @@ body {
 .visor {
   height: 105px;
   background-color: #74ff74;
-  border: 5px solid #0c620c54;
+  border-top: 5px solid #0c620c54;
+  border-bottom: 5px solid #0c620c54;
   font-family: 'calculator';
   display: flex;
   flex-direction: column;
@@ -69,7 +70,7 @@ body {
   height: 55px;
   cursor: pointer;
 }
-button.orange {
+button.operator {
   background-color: #eea520;
 }
 button.equals {
