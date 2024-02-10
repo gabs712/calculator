@@ -5,7 +5,7 @@
   border: none;
 }
 body {
-  background-color: lightgreen;
+  background-color: #bcffeb;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -53,6 +53,12 @@ body {
   align-content: flex-start;
   gap: 10px;
 }
+.grid button:hover {
+  opacity: 0.7;
+}
+.grid button:active {
+  opacity: 0.4;
+}
 .grid button {
   background-color: rgb(57 57 57);
   color: white;
@@ -61,6 +67,7 @@ body {
   border: 2px solid #474747;
   width: 86px;
   height: 86px;
+  cursor: pointer;
 }
 button.orange {
   background-color: #eea520;
