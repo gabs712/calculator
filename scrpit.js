@@ -31,13 +31,15 @@ function addOperator(button) {
     // if the operations is not chained the lenght will be 0
     if (operation.length === 0) {
       operation.push(USER_OPERATION.textContent, button.value)
+      USER_REGISTER.textContent = operation.join(' ')
+      USER_OPERATION.textContent = ''
       
       // if the operation is chained the lenght will be 1
     } else if (operation.length === 1) {
       operation.push(button.value)
+      USER_REGISTER.textContent = operation.join(' ')
+      USER_OPERATION.textContent = ''
     }
-    USER_REGISTER.textContent = operation.join(' ')
-    USER_OPERATION.textContent = ''
   }
 }
 
