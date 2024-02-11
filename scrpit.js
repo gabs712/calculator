@@ -95,5 +95,6 @@ function divide(n1, n2) {
   if (n1 / n2 === Infinity) {
     return 'BOOM'
   }
-  return n1 / n2
+
+  return Math.round(n1 / n2)
 }
