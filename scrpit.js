@@ -67,7 +67,7 @@ function ShowResult() {
     } else {
       // The result is set as the first operator, thus setting the lenght to be
       // 1 and recogning values as a chained operation
-      operation.splice(0, 3, result)
+      operation.splice(0, 3, result.slice(0, 9))
     }
   }
 }
