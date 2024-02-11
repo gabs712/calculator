@@ -27,6 +27,7 @@ function populateVisorOperation(button) {
 
 function addOperator(button) {
   if (USER_OPERATION.textContent.length >= 1) {
+    
     // if the operations is not chained the lenght will be 0
     if (operation.length === 0) {
       operation.push(USER_OPERATION.textContent, button.value)
