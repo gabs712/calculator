@@ -56,8 +56,9 @@ function ShowResult() {
   if (operation.length === 2 && USER_OPERATION.textContent.length >= 1) {
     operation.push(USER_OPERATION.textContent)
     USER_REGISTER.textContent = operation.join(' ') +  ' ='
-    const result = operate()
-    USER_OPERATION.textContent = result
+    const result = String(operate())
+    USER_OPERATION.textContent = 
+    result.length > 9 ? result.slice(0, 9) + '...' : result
     
     if (result === 'BOOM') {
       setTimeout(function() {
