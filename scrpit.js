@@ -27,19 +27,17 @@ function populateVisorOperation(button) {
 
 function addOperator(button) {
   if (USER_OPERATION.textContent.length >= 1) {
-    
+
     // if the operations is not chained the lenght will be 0
     if (operation.length === 0) {
       operation.push(USER_OPERATION.textContent, button.value)
-      USER_REGISTER.textContent = operation.join(' ')
-      USER_OPERATION.textContent = ''
-
+      
       // if the operation is chained the lenght will be 1
     } else if (operation.length === 1) {
       operation.push(button.value)
-      USER_REGISTER.textContent = operation.join(' ')
-      USER_OPERATION.textContent = ''
     }
+    USER_REGISTER.textContent = operation.join(' ')
+    USER_OPERATION.textContent = ''
   }
 }
 
@@ -50,6 +48,9 @@ function clearNumbers() {
 }
 
 function ShowResult() {
+  /* The lenght of the operation is 2 when its ready to be executed because the
+  last value is evalueted only when there is text and the button '=' is 
+  clicked */
   if (operation.length === 2) {
     operation.push(USER_OPERATION.textContent)
     USER_REGISTER.textContent = operation.join(' ') +  ' ='
@@ -61,6 +62,8 @@ function ShowResult() {
         clearNumbers()
       }, 1000)
     } else {
+      // The result is set as the first operator, thus setting the lenght to be
+      // 1 and recogning values as a chained operation
       operation.splice(0, 3, result)
     }
   }
