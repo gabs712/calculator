@@ -11,7 +11,7 @@ function ManageOperations(e) {
   if (button.classList.contains('number')) {
     populateVisorOperation(button)
   } else if (button.classList.contains('operator')) {
-    startOperation(button)
+    addOperator(button)
   } else if (button.classList.contains('clear')) {
     clearNumbers()
   } else if (button.classList.contains('equals')) {
@@ -25,28 +25,43 @@ function populateVisorOperation(button) {
   }
 }
 
-function startOperation(button) {
-  if (operation.length === 0 && USER_OPERATION.textContent.length >= 1) {
-    operation.push(USER_OPERATION.textContent, button.value)
-    USER_REGISTER.textContent = operation.join(' ')
-    USER_OPERATION.textContent = ''
+function addOperator(button) {
+  if (USER_OPERATION.textContent.length >= 1) {
+    // if the operations is not chained the lenght will be 0
+    if (operation.length === 0) {
+      operation.push(USER_OPERATION.textContent, button.value)
+      USER_REGISTER.textContent = operation.join(' ')
+      USER_OPERATION.textContent = ''
+
+      // if the operation is chained the lenght will be 1
+    } else if (operation.length === 1) {
+      operation.push(button.value)
+      USER_REGISTER.textContent = operation.join(' ')
+      USER_OPERATION.textContent = ''
+    }
   }
 }
 
 function clearNumbers() {
-    USER_OPERATION.textContent = ''
-    USER_REGISTER.textContent = ''
-    operation.splice(0)
-  }
+  USER_OPERATION.textContent = ''
+  USER_REGISTER.textContent = ''
+  operation.splice(0)
+}
 
 function ShowResult() {
-  if (operation.length === 2) operation.push(USER_OPERATION.textContent)
-  if (operation.length === 3) {
+  if (operation.length === 2) {
+    operation.push(USER_OPERATION.textContent)
     USER_REGISTER.textContent = operation.join(' ') +  ' ='
     const result = operate()
     USER_OPERATION.textContent = result
     
-    operation.splice(0, 3, result)
+    if (result === 'BOOM') {
+      setTimeout(function() {
+        clearNumbers()
+      }, 1000)
+    } else {
+      operation.splice(0, 3, result)
+    }
   }
 }
 
@@ -71,6 +86,8 @@ function multiply(n1, n2) {
   return n1 * n2
 }
 function divide(n1, n2) {
-  if (n1 / n2 === Infinity) return 'BOOM'
+  if (n1 / n2 === Infinity) {
+    return 'BOOM'
+  }
   return n1 / n2
 }
