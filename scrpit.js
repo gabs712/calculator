@@ -11,7 +11,7 @@ function ManageOperations(e) {
   if (button.classList.contains('number')) {
     populateVisorOperation(button)
   } else if (button.classList.contains('operator')) {
-    populateVisorRegister(button)
+    startOperation(button)
   } else if (button.classList.contains('clear')) {
     clearNumbers()
   } else if (button.classList.contains('equals')) {
@@ -25,51 +25,52 @@ function populateVisorOperation(button) {
   }
 }
 
-function populateVisorRegister(button) {
-  const hasOperator = CURRENT_REGISTER.some((item) => item.includes(/[+-/*]/))
-
-  if (CURRENT_OPERATION.length > 0 && !hasOperator) {
-    CURRENT_REGISTER.push(CURRENT_OPERATION.join(''), button.value)
-    VISOR_REGISTER.textContent = CURRENT_REGISTER.join(' ')
-
-    VISOR_OPERATION.textContent = ''
-    CURRENT_OPERATION.splice(0)
+function startOperation(button) {
+  if (operation.length === 0 && USER_OPERATION.textContent.length >= 1) {
+    operation.push(USER_OPERATION.textContent, button.value)
+    USER_REGISTER.textContent = operation.join(' ')
+    USER_OPERATION.textContent = ''
   }
 }
 
 function clearNumbers() {
-  if (USER_OPERATION.textContent.length > 0 ||
-      USER_REGISTER.textContent.length > 0) {
     USER_OPERATION.textContent = ''
     USER_REGISTER.textContent = ''
+    operation.splice(0)
+  }
+
+function ShowResult() {
+  if (operation.length === 2) operation.push(USER_OPERATION.textContent)
+  if (operation.length === 3) {
+    USER_REGISTER.textContent = operation.join(' ') +  ' ='
+    const result = operate()
+    USER_OPERATION.textContent = result
+    
+    operation.splice(0, 3, result)
   }
 }
 
+function operate() {
+  const [n1, operator, n2] = operation.map((value) => 
+    isNaN(+value) ? value : +value
+  )
 
-// function ShowResult() {
-//   if (CURRENT_REGISTER.length === 2 && CURRENT_OPERATION.length >= 1) {
-//     const result = operate(...CURRENT_REGISTER, ...CURRENT_OPERATION)
-//     VISOR_REGISTER.textContent = CURRENT_REGISTER.join(' ') + ' ='
-//   }
-// }
+  if (operator === '+') return add(n1, n2)
+  else if (operator === '-') return subtract(n1, n2) 
+  else if (operator === '*') return multiply(n1, n2)
+  else if (operator === '/') return divide(n1, n2)
+}
 
-// function operate(n1, operator, n2) {
-
-//   if (operator === '+') add(n1, n2)
-//   else if (operator === '-') subtract(n1, n2) 
-//   else if (operator === '*') multiply(n1, n2)
-//   else if (operator === '/') divide(n1, n2)
-// }
-
-// function add(n1, n2) {
-//   return n1 + n2
-// }
-// function subtract(n1, n2) {
-//   return n1 - n2
-// }
-// function multiply(n1, n2) {
-//   return n1 * n2
-// }
-// function divide(n1, n2) {
-//   return n1 / n2
-// }
+function add(n1, n2) {
+  return n1 + n2
+}
+function subtract(n1, n2) {
+  return n1 - n2
+}
+function multiply(n1, n2) {
+  return n1 * n2
+}
+function divide(n1, n2) {
+  if (n1 / n2 === Infinity) return 'BOOM'
+  return n1 / n2
+}
