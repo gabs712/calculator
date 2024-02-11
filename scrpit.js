@@ -51,7 +51,7 @@ function ShowResult() {
   /* The lenght of the operation is 2 when its ready to be executed because the
   last value is evalueted only when there is text and the button '=' is 
   clicked */
-  if (operation.length === 2) {
+  if (operation.length === 2 && USER_OPERATION.textContent.length >= 1) {
     operation.push(USER_OPERATION.textContent)
     USER_REGISTER.textContent = operation.join(' ') +  ' ='
     const result = operate()
